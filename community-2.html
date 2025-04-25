@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buddy NFT - コミュニティ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* メインスタイル */
+        :root {
+            --primary: #6c63ff;
+            --secondary: #2cdb94;
+            --dark: #1a1a2e;
+            --light: #f7f7ff;
+            --accent: #ff6b6b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            padding-top: 100px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background-color: rgba(26, 26, 46, 0.95);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--light);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .menu ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .menu ul li {
+            margin-left: 25px;
+        }
+        
+        .menu ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .menu ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .menu ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        .menu ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-btn .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--light);
+            margin-bottom: 20px;
+        }
+        
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: rgba(247, 247, 255, 0.8);
+        }
+        
+        .community {
+            padding: 50px 0 100px 0;
+            background-color: var(--dark);
+        }
+        
+        .community-benefits {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .community-benefit {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        
+        .community-benefit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .community-benefit h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .community-benefit p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0;
+        }
+        
+        .community-stats {
+            display: flex;
+            justify-content: center;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+            margin: 0 30px 20px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1rem;
+            color: var(--light);
+        }
+        
+        .community-platforms {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .platform-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 20px 20px;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .platform-link:hover {
+            transform: translateY(-5px);
+        }
+        
+        .platform-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--light);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .platform-name {
+            font-size: 1rem;
+            color: var(--light);
+        }
+        
+        .community-events {
+            margin-top: 70px;
+        }
+        
+        .events-subtitle {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--secondary);
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .event-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .event-image {
+            height: 180px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .event-details {
+            padding: 20px;
+        }
+        
+        .event-date {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .event-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+        
+        .event-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+        }
+        
+        .event-button {
+            display: inline-block;
+            padding: 8px 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .event-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(108, 99, 255, 0.3);
+        }
+        
+        .community-feedback {
+            margin-top: 70px;
+            text-align: center;
+        }
+        
+        .feedback-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--secondary);
+        }
+        
+        .feedback-description {
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(108, 99, 255, 0.4);
+        }
+
+        footer {
+            padding: 50px 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            color: var(--light);
+            font-size: 1.5rem;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            color: rgba(247, 247, 255, 0.5);
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 991px) {
+            .menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: rgba(26, 26, 46, 0.98);
+                backdrop-filter: blur(10px);
+                padding-top: 80px;
+                transition: right 0.3s;
+                z-index: 999;
+            }
+            
+            .menu.open {
+                right: 0;
+            }
+            
+            .menu ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu ul li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1000;
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .community-benefits {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            body {
+                padding-top: 80px;
+            }
+            
+            header {
+                padding: 20px 0;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .menu {
+                width: 80%;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .community-benefits {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat {
+                margin: 0 15px 20px;
+            }
+            
+            .platform-link {
+                margin: 0 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">B</div>
+            <div>Buddy<span>NFT</span></div>
+        </a>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html#features">特徴</a></li>
+                <li><a href="payment.html">送金</a></li>
+                <li><a href="roadmap.html">ロードマップ</a></li>
+                <li><a href="dividend.html">配当</a></li>
+                <li><a href="testimonials.html">投資家の声</a></li>
+                <li><a href="security.html">安全性</a></li>
+                <li><a href="community.html">コミュニティ</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu-btn">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </header>
+    
+    <section class="community" id="community">
+        <div class="container">
+            <div class="section-title">
+                <h2>コミュニティ</h2>
+                <p>Buddy NFT保有者限定の特典とコミュニティ</p>
+            </div>
+            <div class="community-benefits">
+                <div class="community-benefit">
+                    <div class="benefit-icon"><i class="fas fa-globe"></i></div>
+                    <h3>グローバルコミュニティ</h3>
+                    <p>世界中の投資家と繋がり、投資戦略や市場動向を議論できる限定コミュニティにアクセスできます。専門家による定期的なウェビナーや市場分析も提供されます。</p>
+                </div>
+                <div class="community-benefit">
+                    <div class="benefit-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>優先アクセス権</h3>
+                    <p>新規プロジェクトへの優先参加権や限定NFTの先行販売など、特別な投資機会を得ることができます。コミュニティ投票によるプロジェクト方向性の決定にも参加できます。</p>
+                </div>
+                <div class="community-benefit">
+                    <div class="benefit-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>市場分析ツール</h3>
+                    <p>Buddy NFT保有者限定の高度な市場分析ツールと投資情報にアクセスできます。リアルタイムの市場データと専門家による分析レポートも提供されます。</p>
+                </div>
+                <div class="community-benefit">
+                    <div class="benefit-icon"><i class="fas fa-gift"></i></div>
+                    <h3>エアドロップ特典</h3>
+                    <p>定期的なエアドロップやプロジェクト拡大に伴う特典を受け取ることができます。保有期間に応じた追加ボーナスやパートナープロジェクトからの特典も提供されます。</p>
+                </div>
+            </div>
+            <div class="community-stats">
+                <div class="stat">
+                    <div class="stat-number">5,000+</div>
+                    <div class="stat-text">アクティブメンバー</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-text">国と地域</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-text">コミュニティサポート</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-text">月間イベント</div>
+                </div>
+            </div>
+            <div class="community-platforms">
+                <a href="#" class="platform-link">
+                    <div class="platform-icon"><i class="fab fa-twitter"></i></div>
+                    <div class="platform-name">Twitter</div>
+                </a>
+                <a href="#" class="platform-link">
+                    <div class="platform-icon"><i class="fab fa-discord"></i></div>
+                    <div class="platform-name">Discord</div>
+                </a>
+                <a href="#" class="platform-link">
+                    <div class="platform-icon"><i class="fab fa-medium"></i></div>
+                    <div class="platform-name">Medium</div>
+                </a>
+                <a href="#" class="platform-link">
+                    <div class="platform-icon"><i class="fab fa-telegram"></i></div>
+                    <div class="platform-name">Telegram</div>
+                </a>
+            </div>
+            
+            <div class="community-events">
+                <h3 class="events-subtitle">今後のコミュニティイベント</h3>
+                <div class="events-grid">
+                    <div class="event-card">
+                        <div class="event-image">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-date">2025年5月20日 - 20:00 JST</div>
+                            <h4 class="event-title">マーケット展望ウェビナー</h4>
+                            <p class="event-description">暗号資産市場の最新トレンドと今後の展望について、業界専門家が解説するライブウェビナー。質疑応答セッションあり。</p>
+                            <a href="#" class="event-button">詳細を見る</a>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-image">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-date">2025年6月5日 - 19:00 JST</div>
+                            <h4 class="event-title">コミュニティAMAセッション</h4>
+                            <p class="event-description">Buddy NFTプロジェクトの創設者と開発チームによるAsk Me Anythingセッション。今後の開発計画について質問できます。</p>
+                            <a href="#" class="event-button">参加予約</a>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-image">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-date">2025年6月15日 - 18:00 JST</div>
+                            <h4 class="event-title">パートナーシッププレゼンテーション</h4>
+                            <p class="event-description">新しい戦略的パートナーシップの発表と、それがBuddy NFT保有者にもたらす新たな特典について詳しく紹介します。</p>
+                            <a href="#" class="event-button">リマインダーを設定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="community-feedback">
+                <h3 class="feedback-subtitle">コミュニティの声</h3>
+                <p class="feedback-description">Buddy NFTはコミュニティ主導のプロジェクトです。あなたのアイデアや提案が、プロジェクトの未来を形作ります。積極的にフィードバックを共有し、投票に参加してください。</p>
+                <a href="#" class="btn">提案を投稿する</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="container">
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-medium"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#">利用規約</a>
+                <a href="#">プライバシーポリシー</a>
+                <a href="#">お問い合わせ</a>
+                <a href="#">サポート</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Buddy NFT. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // ヘッダースクロールエフェクト
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // モバイルメニュー
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const menu = document.querySelector('.menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('open');
+            menu.classList.toggle('open');
+        });
+        
+        // メニューリンククリック時に閉じる
+        const menuLinks = document.querySelectorAll('.menu a');
+        menuLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('open');
+                menu.classList.remove('open');
+            });
+        });
+        
+        // 画面外クリックで閉じる
+        document.addEventListener('click', function(event) {
+            if (!menu.contains(event.target) && !mobileMenuBtn.contains(event.target) && menu.classList.contains('open')) {
+                mobileMenuBtn.classList.remove('open');
+                menu.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

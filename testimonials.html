@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buddy NFT - 投資家の声</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* メインスタイル */
+        :root {
+            --primary: #6c63ff;
+            --secondary: #2cdb94;
+            --dark: #1a1a2e;
+            --light: #f7f7ff;
+            --accent: #ff6b6b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            padding-top: 100px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background-color: rgba(26, 26, 46, 0.95);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--light);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .menu ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .menu ul li {
+            margin-left: 25px;
+        }
+        
+        .menu ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .menu ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .menu ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        .menu ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-btn .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--light);
+            margin-bottom: 20px;
+        }
+        
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: rgba(247, 247, 255, 0.8);
+        }
+        
+        .testimonials {
+            padding: 50px 0 100px 0;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .testimonial-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .testimonial-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .testimonial-item:before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--secondary);
+            opacity: 0.2;
+            font-family: serif;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--light);
+        }
+        
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--light);
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .testimonial-rating {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .featured-testimonial {
+            grid-column: span 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(rgba(108, 99, 255, 0.1), rgba(44, 219, 148, 0.1));
+        }
+        
+        .featured-testimonial .author-avatar {
+            width: 80px;
+            height: 80px;
+            font-size: 2rem;
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+        
+        .featured-testimonial .author-info {
+            text-align: center;
+        }
+        
+        .featured-testimonial .testimonial-text {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        
+        .testimonial-stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            margin: 20px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1rem;
+            color: var(--light);
+        }
+        
+        .submit-testimonial {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(108, 99, 255, 0.4);
+        }
+
+        footer {
+            padding: 50px 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            color: var(--light);
+            font-size: 1.5rem;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            color: rgba(247, 247, 255, 0.5);
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 991px) {
+            .menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: rgba(26, 26, 46, 0.98);
+                backdrop-filter: blur(10px);
+                padding-top: 80px;
+                transition: right 0.3s;
+                z-index: 999;
+            }
+            
+            .menu.open {
+                right: 0;
+            }
+            
+            .menu ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu ul li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1000;
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+            
+            .featured-testimonial {
+                grid-column: span 1;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            body {
+                padding-top: 80px;
+            }
+            
+            header {
+                padding: 20px 0;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .menu {
+                width: 80%;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">B</div>
+            <div>Buddy<span>NFT</span></div>
+        </a>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html#features">特徴</a></li>
+                <li><a href="payment.html">送金</a></li>
+                <li><a href="roadmap.html">ロードマップ</a></li>
+                <li><a href="dividend.html">配当</a></li>
+                <li><a href="testimonials.html">投資家の声</a></li>
+                <li><a href="security.html">安全性</a></li>
+                <li><a href="community.html">コミュニティ</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu-btn">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </header>
+    
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>投資家の声</h2>
+                <p>Buddy NFTに投資した投資家からのフィードバック</p>
+            </div>
+            
+            <div class="featured-testimonial">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">「Buddy NFTへの投資は私の暗号資産ポートフォリオの中で最も安定したパフォーマンスを示しています。毎月の配当が安定して入るだけでなく、NFT自体の価値も上昇しています。何より、運営チームの透明性とコミュニティへの積極的な関わりが非常に信頼できます。」</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SH</div>
+                    <div class="author-info">
+                        <h4>佐藤 晴彦</h4>
+                        <p>専業投資家 / 東京</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-stats">
+                <div class="stat">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-text">満足度</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">3,500+</div>
+                    <div class="stat-text">投資家</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">18ヶ月</div>
+                    <div class="stat-text">平均保有期間</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">4.8/5.0</div>
+                    <div class="stat-text">平均評価</div>
+                </div>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-item">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">「早期投資に参加して良かったです。毎月配当が入るので、従来のNFTとは一線を画す投資体験です。投資額を増やそうと考えています。」</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TK</div>
+                        <div class="author-info">
+                            <h4>田中 航平</h4>
+                            <p>投資家 / 東京</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">「抽選に外れた時は残念でしたが、約束通り即日で返金されたので安心感があります。次回また参加します。運営の誠実さが伝わりました。」</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MS</div>
+                        <div class="author-info">
+                            <h4>鈴木 美咲</h4>
+                            <p>会社員 / 大阪</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-text">「KYCなしで参加できる手軽さが良いです。送金からNFT受け取りまでスムーズで、配当も安定しています。コミュニティも活発で情報交換が盛んです。」</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TS</div>
+                        <div class="author-info">
+                            <h4>佐藤 拓也</h4>
+                            <p>暗号資産トレーダー / 福岡</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">「初めての暗号資産投資がBuddy NFTでした。とても分かりやすく、サポートも手厚いので安心して始められました。月々の配当も順調で満足しています。」</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">YM</div>
+                        <div class="author-info">
+                            <h4>山田 由美</h4>
+                            <p>主婦 / 名古屋</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">「長期保有するほど配当率が上がる仕組みが素晴らしいです。他のNFTと違い、投機的ではなく実用的な価値があるのが魅力です。友人にも勧めています。」</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">KN</div>
+                        <div class="author-info">
+                            <h4>中村 健太</h4>
+                            <p>エンジニア / 東京</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">「最初は疑っていましたが、実際に配当が約束通り振り込まれて安心しました。透明性のある運営と定期的な報告が信頼できます。マーケットプレイスの開設を楽しみにしています。」</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RI</div>
+                        <div class="author-info">
+                            <h4>伊藤 竜也</h4>
+                            <p>フリーランス / 京都</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="submit-testimonial">
+                <p>Buddy NFT保有者の方は、あなたの体験をシェアしませんか？</p>
+                <a href="#" class="btn">体験を投稿する</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="container">
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-medium"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#">利用規約</a>
+                <a href="#">プライバシーポリシー</a>
+                <a href="#">お問い合わせ</a>
+                <a href="#">サポート</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Buddy NFT. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // ヘッダースクロールエフェクト
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // モバイルメニュー
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const menu = document.querySelector('.menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('open');
+            menu.classList.toggle('open');
+        });
+        
+        // メニューリンククリック時に閉じる
+        const menuLinks = document.querySelectorAll('.menu a');
+        menuLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('open');
+                menu.classList.remove('open');
+            });
+        });
+        
+        // 画面外クリックで閉じる
+        document.addEventListener('click', function(event) {
+            if (!menu.contains(event.target) && !mobileMenuBtn.contains(event.target) && menu.classList.contains('open')) {
+                mobileMenuBtn.classList.remove('open');
+                menu.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buddy NFT - よくある質問</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* メインスタイル */
+        :root {
+            --primary: #6c63ff;
+            --secondary: #2cdb94;
+            --dark: #1a1a2e;
+            --light: #f7f7ff;
+            --accent: #ff6b6b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            padding-top: 100px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background-color: rgba(26, 26, 46, 0.95);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--light);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .menu ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .menu ul li {
+            margin-left: 25px;
+        }
+        
+        .menu ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .menu ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .menu ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        .menu ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-btn .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light);
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--light);
+            margin-bottom: 20px;
+        }
+        
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: rgba(247, 247, 255, 0.8);
+        }
+        
+        .faq {
+            padding: 50px 0 100px 0;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+        
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .faq-category {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            margin: 0 10px 10px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .faq-category:hover, .faq-category.active {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .faq-question h3 {
+            font-size: 1.3rem;
+            color: var(--light);
+        }
+        
+        .faq-question span {
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .faq-answer p {
+            padding-bottom: 20px;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+        }
+        
+        .faq-search {
+            max-width: 600px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+        
+        .faq-search input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-right: 50px;
+            border-radius: 30px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        .faq-search button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .faq-search input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--secondary);
+        }
+        
+        .faq-not-found {
+            text-align: center;
+            display: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .faq-contact {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .faq-contact p {
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(108, 99, 255, 0.4);
+        }
+
+        footer {
+            padding: 50px 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            color: var(--light);
+            font-size: 1.5rem;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            color: rgba(247, 247, 255, 0.5);
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 991px) {
+            .menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: rgba(26, 26, 46, 0.98);
+                backdrop-filter: blur(10px);
+                padding-top: 80px;
+                transition: right 0.3s;
+                z-index: 999;
+            }
+            
+            .menu.open {
+                right: 0;
+            }
+            
+            .menu ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu ul li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1000;
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu-btn.open .bar:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+        }
+        
+        @media (max-width: 767px) {
+            body {
+                padding-top: 80px;
+            }
+            
+            header {
+                padding: 20px 0;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .menu {
+                width: 80%;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .faq-question h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">B</div>
+            <div>Buddy<span>NFT</span></div>
+        </a>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html#features">特徴</a></li>
+                <li><a href="payment.html">送金</a></li>
+                <li><a href="roadmap.html">ロードマップ</a></li>
+                <li><a href="dividend.html">配当</a></li>
+                <li><a href="testimonials.html">投資家の声</a></li>
+                <li><a href="security.html">安全性</a></li>
+                <li><a href="community.html">コミュニティ</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu-btn">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </header>
+    
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>よくある質問</h2>
+                <p>Buddy NFTに関するよくある質問と回答</p>
+            </div>
+            
+            <div class="faq-search">
+                <input type="text" id="faq-search-input" placeholder="質問を検索...">
+                <button id="faq-search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="faq-categories">
+                <div class="faq-category active" data-category="all">すべて</div>
+                <div class="faq-category" data-category="general">一般</div>
+                <div class="faq-category" data-category="payment">送金と参加</div>
+                <div class="faq-category" data-category="dividend">配当と収益</div>
+                <div class="faq-category" data-category="technical">技術的な質問</div>
+            </div>
+            
+            <div class="faq-list">
+                <div class="faq-item" data-category="dividend">
+                    <div class="faq-question">
+                        <h3>配当はいつ、どのように支払われますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>配当は毎月15日に、登録されたウォレットに直接送金されます。保有期間に応じて配当率がアップする仕組みです。1年以上の保有で基本配当率に10%、2年以上で20%、3年以上で30%のボーナスが追加されます。配当は自動的に計算され、すべての取引はブロックチェーン上で確認可能です。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="payment">
+                    <div class="faq-question">
+                        <h3>抽選に外れた場合、返金はいつ行われますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>抽選結果発表後24時間以内に、送金した全額が元のウォレットアドレスに返金されます。手数料は一切かかりません。返金処理はスマートコントラクトによって自動的に行われ、完全に透明性が保たれています。返金処理の完了後、トランザクションハッシュが登録メールアドレスに送信されます。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <h3>Buddy NFTの再販売は可能ですか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>はい、公式マーケットプレイスでの再販売が可能です。ただし、配当権利の移転条件があります。長期保有によるボーナス配当率はリセットされ、新しい所有者から再計算が始まります。また、取引時には5%のロイヤリティが発生し、そのうち2%は配当プールに、3%はプロジェクト開発費に充てられます。詳細は利用規約をご確認ください。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="payment">
+                    <div class="faq-question">
+                        <h3>KYC（本人確認）は必要ですか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>いいえ、BuddyNFTの抽選参加にKYCは必要ありません。メールアドレスと送金用ウォレットのみで簡単に参加できます。これにより、プライバシーを重視する投資家も安心して参加することができます。ただし、一部の国や地域では規制により参加が制限される場合があります。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="payment">
+                    <div class="faq-question">
+                        <h3>抽選はいつ行われますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>次回の抽選は5月15日に行われます。結果はメールで通知され、公式サイトでも確認できます。抽選はブロックチェーン上で行われ、完全に透明性のある方法で実施されます。抽選後、当選者には48時間以内にNFTが発行され、非当選者には24時間以内に全額返金されます。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="technical">
+                    <div class="faq-question">
+                        <h3>どのブロックチェーンでNFTは発行されますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Buddy NFTはイーサリアムブロックチェーン上で発行されます。ERC-721規格に準拠しており、Metamask、Trust Wallet、Coinbase Walletなど主要なウォレットと互換性があります。ガス代の最適化も行われており、将来的にはマルチチェーン展開も計画しています。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <h3>配当の原資はどこから来るのですか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>配当の原資は主に以下の収入源から来ています：1）NFT販売収益の一部（60%）、2）二次流通時のロイヤリティ手数料、3）プロジェクト運営チームによる投資活動からの収益、4）提携プロジェクトからのレベニューシェア。これらの収入源を多角化することで、安定した配当を実現しています。収支の詳細は毎月公式サイトで公開されています。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="dividend">
+                    <div class="faq-question">
+                        <h3>配当にはどの暗号資産が使われますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>配当はETH（イーサリアム）で支払われます。ただし、将来的にはUSDCやUSDTなどのステーブルコインでの受け取りオプションも導入予定です。配当の暗号資産の種類は、コミュニティの投票によって変更される可能性もあります。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="technical">
+                    <div class="faq-question">
+                        <h3>コントラクトアドレスはどこで確認できますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>公式コントラクトアドレスは公式サイトのセキュリティページで確認できます。また、Etherscanでも検証済みのコントラクトとして確認できます。偽のコントラクトやフィッシング詐欺にご注意ください。公式情報は常に公式サイトまたは公式SNSアカウントでのみ発表されます。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="general">
+                    <div class="faq-question">
+                        <h3>プロジェクトチームはどのような人たちですか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Buddy NFTのチームは、ブロックチェーン技術、金融工学、デジタルアート分野における専門家で構成されています。創設者はブロックチェーン業界で10年以上の経験を持つベテランです。チームメンバーの詳細なプロフィールは公式サイトの「チーム」セクションで確認できます。また、定期的なAMAセッションもDiscordで開催しています。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="dividend">
+                    <div class="faq-question">
+                        <h3>配当の税金処理はどうなりますか？</h3>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>配当に関する税金の取り扱いは、お住まいの国や地域の税法に依存します。Buddy NFTは源泉徴収を行っていないため、確定申告は投資家ご自身の責任で行う必要があります。詳細については、専門の税理士にご相談することをお勧めします。なお、毎年1月には前年の配当支払い履歴を記録したレポートがメールで送信されます。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-not-found">
+                <p>お探しの質問が見つかりませんでした。</p>
+            </div>
+            
+            <div class="faq-contact">
+                <p>お探しの質問がリストにない場合は、お気軽にお問い合わせください。</p>
+                <a href="#" class="btn">お問い合わせ</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="container">
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-medium"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#">利用規約</a>
+                <a href="#">プライバシーポリシー</a>
+                <a href="#">お問い合わせ</a>
+                <a href="#">サポート</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Buddy NFT. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // FAQ項目のトグル機能
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // 現在アクティブなアイテムを閉じる
+                const currentActive = document.querySelector('.faq-item.active');
+                if (currentActive && currentActive !== item) {
+                    currentActive.classList.remove('active');
+                }
+                
+                // クリックされたアイテムをトグル
+                item.classList.toggle('active');
+            });
+        });
+        
+        // カテゴリーフィルター
+        const categoryButtons = document.querySelectorAll('.faq-category');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // アクティブクラスを切り替え
+                document.querySelector('.faq-category.active').classList.remove('active');
+                button.classList.add('active');
+                
+                const category = button.getAttribute('data-category');
+                
+                // FAQアイテムをフィルタリング
+                faqItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // 「見つかりません」メッセージを非表示
+                document.querySelector('.faq-not-found').style.display = 'none';
+            });
+        });
+        
+        // 検索機能
+        const searchInput = document.getElementById('faq-search-input');
+        const searchButton = document.getElementById('faq-search-btn');
+        const notFoundMessage = document.querySelector('.faq-not-found');
+        
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm.trim() === '') {
+                // 検索語が空の場合、すべてのFAQを表示
+                faqItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+                notFoundMessage.style.display = 'none';
+                return;
+            }
+            
+            let found = false;
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    found = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // 結果が見つからない場合のメッセージを表示/非表示
+            notFoundMessage.style.display = found ? 'none' : 'block';
+        }
+        
+        searchButton.addEventListener('click', performSearch);
+        
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // ヘッダースクロールエフェクト
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // モバイルメニュー
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const menu = document.querySelector('.menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('open');
+            menu.classList.toggle('open');
+        });
+        
+        // メニューリンククリック時に閉じる
+        const menuLinks = document.querySelectorAll('.menu a');
+        menuLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('open');
+                menu.classList.remove('open');
+            });
+        });
+        
+        // 画面外クリックで閉じる
+        document.addEventListener('click', function(event) {
+            if (!menu.contains(event.target) && !mobileMenuBtn.contains(event.target) && menu.classList.contains('open')) {
+                mobileMenuBtn.classList.remove('open');
+                menu.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
